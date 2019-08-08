@@ -1,12 +1,24 @@
 <div class="row sign-up-form">
-    <div class="col s6 m6">
-      <div class="card blue-grey darken-1">
-        <div class="card-content white-text">
-          <span class="card-title">Name: <%= @student.name%></span>
-          <span>E-mail: <%= @student.email %></span>
-          <p>Course enrollments: none</p>
-        </div>
+  <div class="col s6 m6">
+    <div class="card blue-grey darken-1">
+      <div class="card-content white-text">
+        <span class="card-title">Name: <%= @student.name %></span>
+        <span>E-mail: <%= @student.email %></span>
+        <p>Course enrollments:
+          <% if @student.courses.empty? %>
+        None
+           <% else %>
+          <ul>
+            <% @student.courses.each do |course| %>
+            <li><%= course.name %></li>
+            <% end %>
+          </ul>
+            </p>
+            <% end %>
       </div>
-      <%= link_to '<i class="material-icons right">create</i>Edit your profile'.html_safe, edit_student_path(@student), class: "waves-effect waves-light btn" %>
     </div>
+    <% if current_user == @student %>
+      <%= link_to '<i class="material-icons right">create</i>Edit your profile'.html_safe, edit_student_path(@student), class: "waves-effect waves-light btn" %>
+    <% end %>
+  </div>
 </div>
